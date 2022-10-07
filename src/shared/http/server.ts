@@ -4,6 +4,7 @@ import "express-async-errors";
 import {errors} from "celebrate";
 import cors from "cors";
 import routes from "./routes"
+import {pagination} from "typeorm-pagination";
 import AppError from "./errors/AppError";
 import "@shared/typeorm";
 import uploadConfig from "@config/upload";
@@ -12,6 +13,7 @@ const app = express();
 
 app.use(cors());
 app.use(express.json());
+app.use(pagination);
 app.use("/files", express.static(uploadConfig.directory));
 
 app.use(routes);
