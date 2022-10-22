@@ -1,25 +1,23 @@
-import { getCustomRepository } from "typeorm";
-import { ProductsRepository } from "../typeorm/repositories/ProductsRepository";
-import Product from "../typeorm/entities/Product";
-import RedisCache from '@shared/cache/RedisCache';
+import redisCache from '@shared/cache/RedisCache';
+import { inject, injectable } from "tsyringe";
+import { IProductsRepository } from "../domain/repositories/IProductsRepository";
+import { IProduct } from "../domain/models/IProduct";
 
-interface IRequest{
-    name: string,
-    price: number,
-    quantity: number;
-}
-
+@injectable()
 class ListProductService{
-    public async execute(): Promise<Product[]> {
-        const productsRepository = getCustomRepository(ProductsRepository);
 
-        const redisCache = new RedisCache();
+  constructor(
+    @inject('ProductsRepository')
+    private productsRepository: IProductsRepository,
+  ) {}
 
-        let products = await redisCache.recover<Product[]>('api-vendas-PRODUCT_LIST',
+  public async execute(): Promise<IProduct[]> {
+    let products = await redisCache.recover<IProduct[]>(
+      'api-vendas-PRODUCT_LIST',
         );
 
         if(!products) {
-          products = await productsRepository.find();
+          products = await this.productsRepository.findAll();
 
           await redisCache.save('api-vendas-PRODUCT_LIST', products);
         }

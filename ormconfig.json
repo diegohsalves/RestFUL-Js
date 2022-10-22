@@ -5,11 +5,11 @@
   "username": "postgres",
   "password": "1234567",
   "database": "restfuljs",
-  "entities": ["./dist/modules/**/typeorm/entities/*.js"],
+  "entities": ["./dist/modules/**/infra/typeorm/entities/*.js"],
   "migrations": [
-    "./dist/shared/typeorm/migrations/*.js"
+    "./dist/shared/infra/typeorm/migrations/*.js"
   ],
   "cli": {
-    "migrationDir": "./dist/shared/typeorm/migrations"
+    "migrationDir": "./dist/shared/infra/typeorm/migrations"
   }
 }
