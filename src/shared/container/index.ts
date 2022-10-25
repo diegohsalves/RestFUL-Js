@@ -9,7 +9,7 @@ import { IUserTokensRepository } from '@modules/Users/domain/repositories/IUserT
 import UsersRepository from '@modules/Users/infra/typeorm/repositories/UsersRepository';
 import UserTokensRepository from '@modules/Users/infra/typeorm/repositories/UserTokensRepository';
 import { container } from 'tsyringe';
-
+import '@modules/Users/providers';
 
 container.registerSingleton<ICustomersRepository>(
   'CustomersRepository',

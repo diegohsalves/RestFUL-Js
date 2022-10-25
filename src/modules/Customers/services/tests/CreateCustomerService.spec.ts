@@ -3,13 +3,17 @@ import CreateCustomerService from '../CreateCustomerService';
 import FakeCustomersRepository from '@modules/Customers/domain/repositories/fakes/FakeCustomersRepository';
 import AppError from '@shared/infra/http/errors/AppError';
 
+let fakeCustomersRepository: FakeCustomersRepository;
+let createCustomer: CreateCustomerService;
+
 describe('CreateCustomer', () => {
+  beforeEach(() => {
+    fakeCustomersRepository = new FakeCustomersRepository();
+    createCustomer = new CreateCustomerService(fakeCustomersRepository);
+  })
+
   it('Should be able to create a new Customer', async() => {
-    const fakeCustomersRepository = new FakeCustomersRepository();
-
-    const createCustomer = new CreateCustomerService(fakeCustomersRepository);
-
-    const customer = await createCustomer.execute({
+      const customer = await createCustomer.execute({
       name: 'São Lucas',
       email: 'teste@teste.com',
 
@@ -19,12 +23,7 @@ describe('CreateCustomer', () => {
   });
 
   it('Should not be able to create two Customers with the same email', async() => {
-
-    const fakeCustomersRepository = new FakeCustomersRepository();
-
-    const createCustomer = new CreateCustomerService(fakeCustomersRepository);
-
-    const customer = await createCustomer.execute({
+      const customer = await createCustomer.execute({
       name: 'São Lucas',
       email: 'teste@teste.com',
 

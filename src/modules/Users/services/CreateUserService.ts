@@ -1,9 +1,9 @@
 import AppError from "@shared/infra/http/errors/AppError";
-import { hash } from "bcryptjs";
 import { inject, injectable } from "tsyringe";
 import { ICreateUser } from "../domain/models/ICreateUser";
 import { IUser } from "../domain/models/IUser";
 import { IUsersRepository } from "../domain/repositories/IUsersRepository";
+import { IHashProvider } from "../providers/HashProvider/models/IHashProvider";
 
 @injectable()
 class CreateUserService{
@@ -11,6 +11,8 @@ class CreateUserService{
   constructor(
     @inject('UsersRepository')
     private usersRepository: IUsersRepository,
+    @inject('HashProvider')
+    private hashProvider: IHashProvider,
   ) {}
 
   public async execute({ name, email, password }: ICreateUser): Promise<IUser> {
@@ -21,7 +23,7 @@ class CreateUserService{
             throw new AppError("Email is already in use.");
         }
 
-        const hashedPassword = await hash(password, 8);
+        const hashedPassword = await this.hashProvider.generateHash(password);
 
         const user = await this.usersRepository.create({
             name,
