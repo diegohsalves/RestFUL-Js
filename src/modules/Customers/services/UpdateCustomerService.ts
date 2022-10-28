@@ -4,12 +4,6 @@ import { IUpdateCustomer } from '../domain/models/IUpdateCustomer';
 import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
 import Customer from '../infra/typeorm/entities/Customer';
 
-interface IRequest {
-  id: string;
-  name: string;
-  email: string;
-}
-
 class UpdateCustomerService {
   constructor(
     @inject('CustomersRepository')

@@ -1,7 +1,7 @@
 import 'reflect-metadata';
-import CreateCustomerService from '../CreateCustomerService';
 import FakeCustomersRepository from '@modules/Customers/domain/repositories/fakes/FakeCustomersRepository';
 import AppError from '@shared/infra/http/errors/AppError';
+import CreateCustomerService from '../CreateCustomerService';
 
 let fakeCustomersRepository: FakeCustomersRepository;
 let createCustomer: CreateCustomerService;

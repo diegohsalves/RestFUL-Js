@@ -6,12 +6,6 @@ import { ICreateProduct } from "../domain/models/ICreateProduct";
 import { IProduct } from "../domain/models/IProduct";
 import { IProductsRepository } from "../domain/repositories/IProductsRepository";
 
-interface IRequest{
-    name: string,
-    price: number,
-    quantity: number;
-}
-
 @injectable()
 class CreateProductService{
 

@@ -3,10 +3,6 @@ import { inject, injectable } from 'tsyringe';
 import { IDeleteCustomer } from '../domain/models/IDeleteCustomer';
 import { ICustomersRepository } from '../domain/repositories/ICustomersRepository';
 
-interface IRequest {
-  id: string;
-}
-
 @injectable()
 class DeleteCustomerService {
 

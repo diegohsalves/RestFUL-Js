@@ -1,10 +1,9 @@
 import { v4 as uuidv4 } from 'uuid';
 import { ICreateCustomer } from '@modules/Customers/domain/models/ICreateCustomer';
 import { ICustomersRepository } from '@modules/Customers/domain/repositories/ICustomersRepository';
-import { getRepository, Repository } from 'typeorm';
 import Customer from '@modules/Customers/infra/typeorm/entities/Customer';
 
-class FakeCustomersRepository implements Omit<ICustomersRepository, 'remove' | 'findAll'> {
+class FakeCustomersRepository implements ICustomersRepository {
   private customers: Customer[] = [];
 
   public async create({ name, email }: ICreateCustomer): Promise<Customer> {
